@@ -17,7 +17,7 @@ Ultrasonic sensorUitgaand  = Ultrasonic(D8, D7);
 #define MAX_WACHTENDEN 10
 #define LED_GROEN D2
 #define LED_ROOD D1
-#define LED_ORANJE D3
+#define LED_GEEL D3
 #define RESET_KNOP D6
 
 int wachtenden = 0;
@@ -27,7 +27,7 @@ void setup() {
 
   pinMode(LED_GROEN, OUTPUT);
   pinMode(LED_ROOD, OUTPUT);
-  pinMode(LED_ORANJE, OUTPUT);
+  pinMode(LED_GEEL, OUTPUT);
   pinMode(RESET_KNOP, INPUT);
   pinMode(LED_BUILTIN, OUTPUT);
   digitalWrite(LED_BUILTIN, 0);
@@ -66,9 +66,9 @@ void loop() {
   }
 
   if (wachtenden >= MAX_WACHTENDEN) {
-    digitalWrite(LED_ORANJE, LOW);
+    digitalWrite(LED_GEEL, LOW);
   } else {
-    digitalWrite(LED_ORANJE, HIGH);
+    digitalWrite(LED_GEEL, HIGH);
   }
 
   digitalWrite(LED_ROOD, HIGH);
