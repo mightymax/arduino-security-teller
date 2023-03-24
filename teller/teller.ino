@@ -1,10 +1,6 @@
 #include <ESP8266WiFi.h>
 #include <Ultrasonic.h>
-
-#ifndef STASSID
-#define STASSID "your-ssid"
-#define STAPSK "your-password"
-#endif
+#include "secrets.h"
 
 const char* ssid = STASSID;
 const char* password = STAPSK;
