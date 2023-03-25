@@ -1,4 +1,4 @@
-const server = './bezoekers'
+const char* JS = R"=====(const server = './wachtenden'
 const MAX = 10
 let C =  0
 const counter = () => {
@@ -29,4 +29,4 @@ const counter = () => {
 
 window.onload = () => {
   counter()
-}
+})=====";

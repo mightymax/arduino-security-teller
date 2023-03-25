@@ -1,6 +1,9 @@
 #include <ESP8266WiFi.h>
 #include <Ultrasonic.h>
 #include "secrets.h"
+#include "www/index.html.h"
+#include "www/styles.ccs.h"
+#include "www/teller.js.h"
 
 const char* ssid = STASSID;
 const char* password = STAPSK;
@@ -42,23 +45,38 @@ void setup() {
 
   Serial.println("");
   Serial.println("WiFi verbonden");
-  // start our webserver:
+  // start de webserver:
   server.begin();
-  Serial.print("Webserver gestart op IP adres ");
+  Serial.print("Om de wachtrij te zien ga naar http://");
   Serial.println(WiFi.localIP());
 
 }
 
+void httpResponse(WiFiClient client, String contentType, String content) {
+    client.print(F("HTTP/1.1 200 OK\r\nContent-Type: text/"));
+    client.print(contentType);
+    client.print("\r\n\r\n");
+    client.print(content);
+}
 
 void loop() {
   WiFiClient client = server.accept();
   if (client) {
+    String req = client.readStringUntil('\r');
     client.setTimeout(5000);
      while (client.available()) {
        client.read();
     }
-    client.print(F("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nAccess-Control-Allow-Origin: *\r\n\r\n"));
-    client.print(wachtenden) ;
+    // HTTP response:
+    if (req.indexOf(F("/styles.css")) != -1) {
+      httpResponse(client, "css", CSS);
+    } else if (req.indexOf(F("/teller.js")) != -1) {
+      httpResponse(client, "javascript", JS);
+    } else if (req.indexOf(F("/wachtenden")) != -1) {
+      httpResponse(client, "plain", String(wachtenden));
+    } else {
+      httpResponse(client, "html", INDEX);
+    }
   }
 
   if (wachtenden >= MAX_WACHTENDEN) {
