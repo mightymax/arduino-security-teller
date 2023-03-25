@@ -53,7 +53,7 @@ void setup() {
 }
 
 void httpResponse(WiFiClient client, String contentType, String content) {
-    client.print(F("HTTP/1.1 200 OK\r\nContent-Type: text/"));
+    client.print("HTTP/1.1 200 OK\r\nContent-Type: text/");
     client.print(contentType);
     client.print("\r\n\r\n");
     client.print(content);
@@ -68,11 +68,11 @@ void loop() {
        client.read();
     }
     // HTTP response:
-    if (req.indexOf(F("/styles.css")) != -1) {
+    if (req.indexOf("/styles.css") != -1) {
       httpResponse(client, "css", CSS);
-    } else if (req.indexOf(F("/teller.js")) != -1) {
+    } else if (req.indexOf("/teller.js") != -1) {
       httpResponse(client, "javascript", JS);
-    } else if (req.indexOf(F("/wachtenden")) != -1) {
+    } else if (req.indexOf("/wachtenden") != -1) {
       httpResponse(client, "plain", String(wachtenden));
     } else {
       httpResponse(client, "html", INDEX);
