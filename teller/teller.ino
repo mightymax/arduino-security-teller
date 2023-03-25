@@ -14,6 +14,7 @@ Ultrasonic sensorUitgaandkomend = Ultrasonic(D5);
 Ultrasonic sensorUitgaand  = Ultrasonic(D8, D7);
 
 #define MAX_WACHTENDEN 10
+#define BREEDTE_POORT 20
 #define LED_GROEN D2
 #define LED_ROOD D1
 #define LED_GEEL D3
@@ -93,22 +94,22 @@ void loop() {
     delay(500) ;
   }
 
-  if (sensorUitgaand.read() < 20) {
+  if (sensorUitgaand.read() < BREEDTE_POORT) {
     digitalWrite(LED_ROOD, LOW);
     // allow time to pass:
     delay(200);
-    if (sensorUitgaand.read() > 100) {
+    if (sensorUitgaand.read() > BREEDTE_POORT) {
       // passed
       digitalWrite(LED_ROOD, HIGH);
       wachtenden++;
     }
   }
 
-  if (sensorUitgaandkomend.read() < 20) {
+  if (sensorUitgaandkomend.read() < BREEDTE_POORT) {
     digitalWrite(LED_GROEN, LOW);
     // allow time to pass:
     delay(200);
-    if (sensorUitgaandkomend.read() > 100) {
+    if (sensorUitgaandkomend.read() > BREEDTE_POORT) {
       // passed
       digitalWrite(LED_GROEN, HIGH);
       wachtenden--;
